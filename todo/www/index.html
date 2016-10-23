@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/TaskCtrl.js"></script>
+  </head>
+  <body ng-app="starter">
+
+    <ion-pane>
+      <ion-header-bar class="bar-stable">
+        <h1 class="title">TODO</h1>
+      </ion-header-bar>
+      <ion-content>
+        <div class="im-wrapper">
+          <div class="list" id="recent-box" ng-controller="TaskCtrl">
+          <div class="widget-header header-color-blue">
+            <div class="row">
+              <!-- <h4 class="bigger lighter">
+               <i class="icon ion-ios-list-outline"></i>&nbsp;
+               TASK MANAGER
+              </h4> -->
+              <div class="col-sm-3">
+              <button ng-click="addNewClicked=!addNewClicked;" class="btn btn-sm btn-danger header-elements-margin"><i class="glyphicon  glyphicon-plus"></i>&nbsp;Add New Task</button>
+              </div>
+               
+              <input type="text" ng-model="filterTask" class="form-control search header-elements-margin" placeholder="Filter Tasks">
+            </div>
+          </div>
+            
+            <form ng-init="addNewClicked=false; " ng-if="addNewClicked" id="newTaskForm" class="add-task">
+              <div class="item item-button-right">
+
+              <input type="text" class="form-control" name="comment" ng-model="taskInput" placeholder="Add New Task" ng-focus="addNewClicked">
+              <button class="button" type="submit" ng-click="addTask(taskInput)"><i class="icon ion-plus-round"></i>
+              &nbsp;
+              </button>
+              </div>
+            </form>
+            <!-- <div class="task" ng-repeat="task in tasks | filter : filterTask">
+              <div class="item item-button-right">
+               <label class="checkbox">
+                
+                  <input style="margin-left:2px; margin-top: -5px"
+                 type="checkbox"
+                 value="{{task.status}}"
+                 ng-checked="task.status==2"
+                 ng-click="toggleStatus(task.task_id,task.status, task.task)"/> 
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+                 <span style="margin-left:25px" ng-class="{strike:task.status==2}">{{task.task}} [{{task.task_id}}]</span>
+                  </label>
+                  <button style="margin-top: 17px" class="button button-assertive ink" ng-click="deleteTask(task.task_id)"><i class="icon ion-trash-a"></i>
+                  </button>
+                  </div>
+                <hr />
+            </div> -->
+                  <ion-list>
+                    
+                  <div class="item item-button-right">
+              <ion-checkbox value="{{task.status}}" ng-checked="task.status==2"
+               ng-click="toggleStatus(task.task_id,task.status, task.task)">
+               <span ng-class="{strike:task.status==2}">{{task.task}} [{{task.task_id}}]</span>
+                      </ion-checkbox>
+
+                          <button class="button button-assertive ink" ng-click="deleteTask(task.task_id)"><i class="icon ion-trash-a"></i></button>
+                      </div>
+                      <hr />
+
+            </ion-list>
+        </div>
+        </div>
+      </ion-content>
+    </ion-pane>
+  </body>
+</html>
